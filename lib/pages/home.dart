@@ -59,7 +59,12 @@ class _MyHomePageState extends State<MyHomePage> {
           future: fetchUsers(),
           builder: (context, snapshot) {
             final users = snapshot.data ?? [];
-            return _buildView(users);
+            return RefreshIndicator(
+                onRefresh: () {
+                  setState(() {});
+                  return Future.value();
+                },
+                child: _buildView(users));
           },
         ),
       ), // This trailing comma makes auto-formatting nicer for build methods.
