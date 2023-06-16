@@ -1,4 +1,5 @@
 import 'package:app_aula1306/pages/home.dart';
+import 'package:app_aula1306/pages/login.dart';
 import 'package:flutter/material.dart';
 
 import '../services/user_service.dart';
@@ -25,11 +26,19 @@ class _FormularioPageState extends State<FormularioPage> {
         !_username.trim().isEmpty &&
         !_password.trim().isEmpty &&
         (_password == _retryPassword)) {
-      _userService.adicionar(_nome, _username, _password).then((value) => {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => MyHomePage()),
-            )
+      _userService.adicionar(_nome, _username, _password).then((retorno) => {
+            if (retorno == null)
+              {
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => LoginPage()))
+              }
+            else
+              {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => MyHomePage()),
+                )
+              }
           });
     } else {
       showDialog(
